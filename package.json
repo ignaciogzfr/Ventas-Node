@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "@dotenvx/dotenvx": "^1.37.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "node": "^18.20.7",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.3"
+  },
+  "name": "defontana-test-1",
+  "version": "1.0.0",
+  "description": "DB Connection tEST",
+  "main": "api/sales.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node api/sales.ts",
+    "dev": "nodemon --watch 'api/**/*.ts' --exec 'ts-node' api/sales.ts"
+  },
+  "author": "Ignacio González",
+  "license": "ISC"
+}
