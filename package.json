@@ -5,7 +5,9 @@
     "express": "^4.21.2",
     "node": "^18.20.7",
     "nodemon": "^3.1.9",
-    "typescript": "^5.7.3"
+    "sequelize": "^6.37.5",
+    "sequelize-msnodesqlv8": "^0.2.6-beta.8",
+    "tedious": "^18.6.1"
   },
   "name": "defontana-test-1",
   "version": "1.0.0",
@@ -13,9 +15,14 @@
   "main": "api/sales.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node api/sales.ts",
-    "dev": "nodemon --watch 'api/**/*.ts' --exec 'ts-node' api/sales.ts"
+    "start": "npx ts-node api/sales"
   },
   "author": "Ignacio González",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
 }
