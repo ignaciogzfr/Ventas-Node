@@ -3,10 +3,8 @@ import { ServiceModel } from "../services/sequelize";
 
 export class VentaModel extends Model {
     IDVenta: number;
-    TotalPesos: number;
+    Total: number;
     Fecha: string;
-    Neto: number;
-    Iva: number;
     IDLocal: number;
 }
 
@@ -14,15 +12,13 @@ export const initVentas = (db: Sequelize) => {
     db.define('Venta', {
 
         IDVenta: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true, allowNull: false, unique: true, field: 'ID_Venta' },
-        TotalPesos: { type: DataTypes.INTEGER, allowNull: false },
-        Fecha: { type: DataTypes.DATE, allowNull: false },
-        Neto: { type: DataTypes.INTEGER, allowNull: false },
-        Iva: { type: DataTypes.INTEGER, allowNull: false },
+        Total: { type: DataTypes.INTEGER, allowNull: false },
+        Fecha: { type: DataTypes.DATEONLY, allowNull: false },
         IDLocal: { type: DataTypes.INTEGER, allowNull: false, field: 'ID_Local' },
 
     }, {
         tableName: 'Venta',
-        timestamps: true,
+        timestamps: false,
     }
     );
 };
@@ -35,19 +31,27 @@ export class Ventas {
     }
 
     async getLast30Days() {
+
+        // Date from 2024-03-31 to 2024-04-30
+        const date = new Date('2024-03-31');
         const where = {
             fecha: {
-                [Op.gte]: new Date(new Date().setDate(new Date().getDate() - 30))
+                [Op.between]: [date.toISOString(), new Date(new Date().setDate(date.getDate() + 30)).toISOString()]
             }
         };
         const order = [
             ['Fecha', 'DESC']
         ];
+        const include = [
+            { association: 'Local' },
+            { association: 'Detalles', include: [{ association: 'Producto', include: 'Marca' }] }
+        ];
         const ventas = await this.db.models.Venta.findAll({
             where,
-            order
+            order,
+            include
         });
         return ventas;
     }
-    
+
 }

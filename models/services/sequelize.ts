@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
-import { initVentas } from '../entities/Venta';
+import initializeModels from './InitializeModels';
+import createAssociations from './Associations'
 
 export class ServiceModel {
     db: Sequelize;
@@ -13,9 +14,9 @@ export class ServiceModel {
     }) {
 
         this.db = this.connectToDB(config);
-        initVentas(this.db);
-        this.db.sync();
+        initializeModels(this.db);
         this.models = this.db.models;
+        createAssociations(this.models);
     }
 
     connectToDB(config: {
