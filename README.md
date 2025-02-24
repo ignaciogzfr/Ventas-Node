@@ -16,7 +16,7 @@ This will install all the necessary dependencies required by the project.
 Once the dependencies have been successfully installed, run the following command:
 
 ```bash
-npm install
+npm start
 ```
 
 This will start the application, and you should be good to go!
